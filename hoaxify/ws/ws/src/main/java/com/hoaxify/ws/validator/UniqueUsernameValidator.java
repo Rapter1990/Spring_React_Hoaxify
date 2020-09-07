@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.hoaxify.ws.validator;
 
 import javax.validation.ConstraintValidator;
@@ -26,32 +25,3 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
 	}
 
 }
-=======
-package com.hoaxify.ws.validator;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.hoaxify.ws.customannotation.UniqueUsername;
-import com.hoaxify.ws.model.User;
-import com.hoaxify.ws.repository.UserRepository;
-
-// String User classdaki username String olduğu için onu yazdık.
-public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String>{
-
-	@Autowired
-	UserRepository userRepository;
-
-	@Override
-	public boolean isValid(String username, ConstraintValidatorContext context) {
-		User user = userRepository.findByUsername(username);
-		if(user != null) {
-			return false;
-		}
-		return true;
-	}
-
-}
->>>>>>> Your message about the commit

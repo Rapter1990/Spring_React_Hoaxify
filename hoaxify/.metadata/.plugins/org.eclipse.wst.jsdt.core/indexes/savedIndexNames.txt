@@ -4,4 +4,3 @@ INDEX VERSION 1.4+C:\Users\Noyan\Desktop\spring\workspace\hoaxify\.metadata\.plu
 2646433678.index
 4083454430.index
 647876047.index
-865452401.index
