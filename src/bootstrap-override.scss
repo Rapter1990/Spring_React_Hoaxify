@@ -3,3 +3,15 @@ $primary: #818;
 
 // 22 ) bootstrap.scss dosyayısı import ettik
 @import '~bootstrap/scss/bootstrap.scss';
+
+
+// 524 ) .btn-delete-link tanımladık
+.btn-delete-link {
+    color: $gray-400;
+    padding: 0;
+}
+
+// 525 ) .btn-delete-link:hover tanımladık
+.btn-delete-link:hover {
+    color: $danger;
+}

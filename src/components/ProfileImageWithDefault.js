@@ -12,7 +12,6 @@ const ProfileImageWithDefault = props => {
   if (image) {
     // 446 ) images directoryden image değerini aldık
     imageSource = 'api/1.0/images/profile/' + image;
-    console.log(imageSource);
   }
   // 441 ) src kısmına tempImage ekledik tempImage varsa o yoksa imageSource 
   // 444 ) tempImage Unknown hatası aldığımız için onu sildik

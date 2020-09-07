@@ -103,6 +103,14 @@ const HoaxFeed = () => {
     }));
   };
 
+  // 529 ) onDeleteHoaxSuccess sildikten sonra ona tüm hoaxları getirme
+  const onDeleteHoaxSuccess = id => {
+    setHoaxPage(previousHoaxPage => ({
+      ...previousHoaxPage,
+      content: previousHoaxPage.content.filter(hoax => hoax.id !== id)
+    }));
+  };
+
 
   // 481 ) hoaxPage veriyi content assign ettik
   // 483 ) last 'da aldık

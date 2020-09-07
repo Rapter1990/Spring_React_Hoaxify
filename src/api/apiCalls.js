@@ -81,3 +81,8 @@ export const getNewHoaxes = (id, username) => {
 export const postHoaxAttachment = attachment => {
   return axios.post('/api/1.0/hoax-attachments', attachment);
 };
+
+// 528 ) deleteHoax methodunu tanımladık
+export const deleteHoax = id => {
+  return axios.delete(`/api/1.0/hoaxes/${id}`);
+};
