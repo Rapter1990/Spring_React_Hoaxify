@@ -1,0 +1,5 @@
+package com.hoaxify.ws.service;
+
+public class HoaxSecurityService {
+
+}

@@ -1,0 +1,89 @@
+<<<<<<< HEAD
+package com.hoaxify.ws.controller;
+
+import java.util.Base64;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hoaxify.ws.customannotation.CurrentUser;
+import com.hoaxify.ws.error.ApiError;
+import com.hoaxify.ws.jacksonview.Views;
+import com.hoaxify.ws.model.User;
+import com.hoaxify.ws.projection.UserVM;
+import com.hoaxify.ws.service.UserService;
+
+@RestController
+public class AuthController {
+
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	// required = false kısımı yaptık Authorization required olması bile bu methodu çalıştır yoksa 
+	// { auth: creds } silersek Spring tarafında hata alırız.
+	// ErrorHandler kullandığımız için required = false sildik.
+	@PostMapping("/auth")
+	//@JsonView(Views.Base.class) // @JsonView View Base class göre göster (User ve ApiError'deki Views.Base.class field alacak diğer durumları almayacak)
+	// handleAuthentication çoğu işlemi sildik (HoaxifyUserDetails )
+	// @CurrentUser annotation tanımladık ve @AuthenticationPrincipal ile Authentication alıp 
+	// User user = authentication.getAuthentication().getPrincipal(); gerek kalmadı
+	UserVM handleAuthentication(@CurrentUser User user) {
+		return new UserVM(user);
+	}
+	
+}
+=======
+package com.hoaxify.ws.controller;
+
+import java.util.Base64;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hoaxify.ws.customannotation.CurrentUser;
+import com.hoaxify.ws.error.ApiError;
+import com.hoaxify.ws.jacksonview.Views;
+import com.hoaxify.ws.model.User;
+import com.hoaxify.ws.projection.UserVM;
+import com.hoaxify.ws.service.UserService;
+
+@RestController
+public class AuthController {
+
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	// required = false kısımı yaptık Authorization required olması bile bu methodu çalıştır yoksa 
+	// { auth: creds } silersek Spring tarafında hata alırız.
+	// ErrorHandler kullandığımız için required = false sildik.
+	@PostMapping("/auth")
+	//@JsonView(Views.Base.class) // @JsonView View Base class göre göster (User ve ApiError'deki Views.Base.class field alacak diğer durumları almayacak)
+	// handleAuthentication çoğu işlemi sildik (HoaxifyUserDetails )
+	// @CurrentUser annotation tanımladık ve @AuthenticationPrincipal ile Authentication alıp 
+	// User user = authentication.getAuthentication().getPrincipal(); gerek kalmadı
+	UserVM handleAuthentication(@CurrentUser User user) {
+		return new UserVM(user);
+	}
+	
+}
+>>>>>>> Your message about the commit

@@ -1,0 +1,219 @@
+<<<<<<< HEAD
+package com.hoaxify.ws.model;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hoaxify.ws.customannotation.UniqueUsername;
+import com.hoaxify.ws.jacksonview.Views;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="USERS",catalog ="SPRINGREACTPROJECT")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails{
+
+	@Id
+	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERS_SEQ")
+	@Column(name="ID", nullable = false)
+	//@JsonView(Views.Base.class)
+	private long id;
+	
+	@NotNull(message="{hoaxify.constraint.username.NotNull.message}")
+	@Column(name="USERNAME")
+	@Size(min = 4, max=255)
+	@UniqueUsername
+	//@JsonView(Views.Base.class)
+	private String username;
+
+	@NotNull
+	@Column(name="DISPLAYNAME")
+	@Size(min = 4, max=255)
+	//@JsonView(Views.Base.class)
+	private String displayName;
+
+	@NotNull
+	@Column(name="PASSWORD")
+	@Size(min = 8, max=255)
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$" , message="{hoaxify.constrain.password.Pattern.message}")
+	//@JsonView(Views.Sensitive.class)
+	private String password;
+	
+	@Column(name="IMAGE")
+	//@JsonView(Views.Base.class)
+	//@Lob
+	private String image;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Hoax> hoaxs = new HashSet<>();
+
+	public User(String username, String displayName, String password) {
+		super();
+		this.username = username;
+		this.displayName = displayName;
+		this.password = password;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return AuthorityUtils.createAuthorityList("Role_user");
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	
+}
+=======
+package com.hoaxify.ws.model;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hoaxify.ws.customannotation.UniqueUsername;
+import com.hoaxify.ws.jacksonview.Views;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="USERS",catalog ="SPRINGREACTPROJECT")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails{
+
+	@Id
+	@SequenceGenerator(name="USERS_SEQ", sequenceName="USERS_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERS_SEQ")
+	@Column(name="ID", nullable = false)
+	//@JsonView(Views.Base.class)
+	private long id;
+	
+	@NotNull(message="{hoaxify.constraint.username.NotNull.message}")
+	@Column(name="USERNAME")
+	@Size(min = 4, max=255)
+	@UniqueUsername
+	//@JsonView(Views.Base.class)
+	private String username;
+
+	@NotNull
+	@Column(name="DISPLAYNAME")
+	@Size(min = 4, max=255)
+	//@JsonView(Views.Base.class)
+	private String displayName;
+
+	@NotNull
+	@Column(name="PASSWORD")
+	@Size(min = 8, max=255)
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$" , message="{hoaxify.constrain.password.Pattern.message}")
+	//@JsonView(Views.Sensitive.class)
+	private String password;
+	
+	@Column(name="IMAGE")
+	//@JsonView(Views.Base.class)
+	//@Lob
+	private String image;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Hoax> hoaxs = new HashSet<>();
+
+	public User(String username, String displayName, String password) {
+		super();
+		this.username = username;
+		this.displayName = displayName;
+		this.password = password;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return AuthorityUtils.createAuthorityList("Role_user");
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	
+}
+>>>>>>> Your message about the commit
