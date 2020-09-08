@@ -42,8 +42,10 @@ public class Hoax {
     @JoinColumn(name = "USER_ID")
 	private User user;
 	
-	@OneToOne(cascade = {CascadeType.MERGE , CascadeType.REMOVE})
-    @JoinColumn(name = "FILEATTACHMENT_ID")
+	//@OneToOne(cascade = {CascadeType.MERGE , CascadeType.REMOVE})
+    //@JoinColumn(name = "FILEATTACHMENT_ID")
+	@OneToOne(mappedBy = "hoax" , cascade = {CascadeType.MERGE , CascadeType.REMOVE})
+	@JoinColumn(name = "FILEATTACHMENT_ID")
 	private FileAttachment fileAttachment;
 
 }

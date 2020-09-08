@@ -137,7 +137,7 @@ const HoaxFeed = () => {
         </div>
       )}
       {content.map(hoax => {
-        return <HoaxView key={hoax.id} hoax={hoax} />;
+        return <HoaxView key={hoax.id} hoax={hoax} onDeleteHoax={onDeleteHoaxSuccess}/>;
       })}
       {/** !last -> son sayfada değilsek  getirmeye devam et*/}
       {/** her seferinde number + 1 yaptık*/}

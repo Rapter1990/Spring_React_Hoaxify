@@ -35,6 +35,8 @@ public class UserService {
 	@Autowired
 	FileService fileService;
 	
+	@Autowired
+	HoaxService hoaxService;
 
 	public void save(User user) {
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -70,5 +72,10 @@ public class UserService {
 			fileService.deleteProfileImage(oldImageName);
 		}
 		return userRepository.save(inDB);
+	}
+	
+	public void deleteUser(String username) {
+		hoaxService.deleteHoaxesOfUser(username);
+		userRepository.deleteByUsername(username);
 	}
 }

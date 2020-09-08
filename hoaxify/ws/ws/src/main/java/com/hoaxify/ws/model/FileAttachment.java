@@ -38,6 +38,7 @@ public class FileAttachment {
 	@Column(name="FILETYPE")
 	private String fileType;
 
-	@OneToOne(mappedBy = "fileAttachment", cascade = CascadeType.MERGE)
+	//@OneToOne(mappedBy = "fileAttachment", cascade = CascadeType.MERGE)
+	@OneToOne(cascade = {CascadeType.MERGE})
 	private Hoax hoax;
 }

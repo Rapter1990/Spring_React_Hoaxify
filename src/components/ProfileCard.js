@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 // 329 ) withRouter ve connect işlemini Hook ile useParams  ve useSelector  ile yaptık.
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ProfileImageWithDefault from './ProfileImageWithDefault';
 import { useTranslation } from 'react-i18next';
 import Input from './Input';
-import { updateUser } from '../api/apiCalls';
+import { updateUser, deleteUser } from '../api/apiCalls';
 import { useApiProgress } from '../shared/ApiProgress';
 import ButtonWithProgress from './ButtonWithProgress';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateSuccess } from '../redux/authActions';
+import { updateSuccess, logoutSuccess  } from '../redux/authActions';
+import Modal from './Model';
 
 // 221 ) Redux kullanacağımız için AuthenticationContext Kaldırdık  
 // import { Authentication } from '../shared/AuthenticationContext';
@@ -16,13 +17,13 @@ import { updateSuccess } from '../redux/authActions';
 // 199 ) ProfileCard oluşturduk (username ekranda göstermek için)
 // withRouter kullanarak props(props =>) methoda yolladık
 const ProfileCard = props => {
-  
+
   // 411 ) inEditMode değişkenini false olarak tanımladık
   const [inEditMode, setInEditMode] = useState(false);
 
   // 436 ) editable false olarak tanımladık
   const [editable, setEditable] = useState(false);
-  
+
   // 330 ) useSelector ilemini kullanarak username aldık
   const { username: loggedInUsername } = useSelector(store => ({ username: store.username }));
 
@@ -38,6 +39,9 @@ const ProfileCard = props => {
   //const loggedInUsername = props.username;
   let message = 'We cannot edit';
 
+  // 543 ) modalVisible false olarak belirledik
+  const [modalVisible, setModalVisible] = useState(false);
+
   // 417 ) updatedDisplayName değişkeni tanımladık
   const [updatedDisplayName, setUpdatedDisplayName] = useState();
 
@@ -50,8 +54,15 @@ const ProfileCard = props => {
   // 449 ) validationErrors useState ile boş obje olarak tanımladık
   const [validationErrors, setValidationErrors] = useState({});
 
+  // 544 ) pendingApiCallDeleteUser tanımladık
+  const pendingApiCallDeleteUser = useApiProgress('delete', `/api/1.0/users/${username}`, true);
+
+
   // 463 ) Bilgileri başka yerlere taşımak için dispatch kullandık.
   const dispatch = useDispatch();
+
+  // 542 ) history tanımladık
+  const history = useHistory();
 
   // 432 ) useEffect ile setUser atadım
   useEffect(() => {
@@ -152,6 +163,18 @@ const ProfileCard = props => {
     fileReader.readAsDataURL(file);
   };
 
+  // 545 ) onClickCancel tanımladık
+  const onClickCancel = () => {
+    setModalVisible(false);
+  };
+
+  // 546 ) onClickDeleteUser tanımladık
+  const onClickDeleteUser = async () => {
+    await deleteUser(username);
+    setModalVisible(false);
+    dispatch(logoutSuccess());
+    history.push('/');
+  };
 
   // 434 ) pendingApiCall tanımladık
   const pendingApiCall = useApiProgress('put', '/api/1.0/users/' + username);
@@ -184,10 +207,18 @@ const ProfileCard = props => {
             </h3>
             {/** 435 ) editable ekledik (CONDITIONAL RENDERING)*/}
             {editable && (
-              <button className="btn btn-success d-inline-flex" onClick={() => setInEditMode(true)}>
-                <i className="material-icons">edit</i>
-                {t('Edit')}
-              </button>
+              <>
+                <button className="btn btn-success d-inline-flex" onClick={() => setInEditMode(true)}>
+                  <i className="material-icons">edit</i>
+                  {t('Edit')}
+                </button>
+                <div className="pt-2">
+                  <button className="btn btn-danger d-inline-flex" onClick={() => setModalVisible(true)}>
+                    <i className="material-icons">directions_run</i>
+                    {t('Delete My Account')}
+                  </button>
+                </div>
+              </>
             )}
           </>
         )}
@@ -195,12 +226,12 @@ const ProfileCard = props => {
           <div>
             {/** // 416 ) defaultValue Input alanına ekledik */}
             <Input
-            label={t('Change Display Name')}
-            defaultValue={displayName}
-            onChange={event => {
-              setUpdatedDisplayName(event.target.value);
-            }}
-            error={displayNameError}
+              label={t('Change Display Name')}
+              defaultValue={displayName}
+              onChange={event => {
+                setUpdatedDisplayName(event.target.value);
+              }}
+              error={displayNameError}
             />
             <Input type="file" onChange={onChangeFile} error={imageError} />
             <div>
@@ -224,6 +255,15 @@ const ProfileCard = props => {
           </div>
         )}
       </div>
+      <Modal
+        visible={modalVisible}
+        title={t('Delete My Account')}
+        okButton={t('Delete My Account')}
+        onClickCancel={onClickCancel}
+        onClickOk={onClickDeleteUser}
+        message={t('Are you sure to delete your account?')}
+        pendingApiCall={pendingApiCallDeleteUser}
+      />
     </div>
   );
 };
