@@ -34,7 +34,7 @@ spring:
       max-file-size:
         10MB
         
-        
+ 
 --- 
 spring:
   profiles: production
@@ -48,3 +48,4 @@ spring:
 
 hoaxify: 
   upload-path: dev-production
+  

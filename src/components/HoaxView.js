@@ -66,7 +66,7 @@ const HoaxView = props => {
             </Link>
           </div>
           {ownedByLoggedInUser && (
-            <button className="btn btn-delete-link btn-sm" onClick={onClickDelete}>
+            <button className="btn btn-delete-link btn-sm" onClick={() => setModalVisible(true)}>
               <i className="material-icons">delete_outline</i>
             </button>
           )}
@@ -81,6 +81,7 @@ const HoaxView = props => {
           </div>
         )}
       </div>
+      {/** Model function veya React Componenet burada sorun olacağı için return <></> (React Fragment yararlandık) */}
       <Modal
         visible={modalVisible}
         title={t('Delete Hoax')}

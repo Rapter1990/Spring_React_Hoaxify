@@ -75,7 +75,15 @@ public class UserService {
 	}
 	
 	public void deleteUser(String username) {
-		hoaxService.deleteHoaxesOfUser(username);
-		userRepository.deleteByUsername(username);
+		//hoaxService.deleteHoaxesOfUser(username);
+		//1. Adım
+		//User inDB = userRepository.findByUsername(username);
+		//userRepository.delete(inDB);
+		// 2.Adım
+		//userRepository.deleteByUsername(username);
+		
+		User inDB = userRepository.findByUsername(username);
+		fileService.deleteAllStoredFilesForUser(inDB);
+		userRepository.delete(inDB);
 	}
 }

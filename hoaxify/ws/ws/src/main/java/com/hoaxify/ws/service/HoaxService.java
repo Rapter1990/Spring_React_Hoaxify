@@ -52,9 +52,10 @@ public class HoaxService {
 		
 		Optional<FileAttachment> optionalFileAttachment = fileAttachmentRepository.findById(hoaxSubmitVM.getAttachmentId());
 		if(optionalFileAttachment.isPresent()) {
-			FileAttachment fileAttachment = optionalFileAttachment.get();
-			fileAttachment.setHoax(hoax);
-			fileAttachmentRepository.save(fileAttachment);
+			//FileAttachment fileAttachment = optionalFileAttachment.get();
+			//fileAttachment.setHoax(hoax);
+			//fileAttachmentRepository.save(fileAttachment);
+			hoax.setFileAttachment(optionalFileAttachment.get());
 		}
 		hoaxRepository.save(hoax);
 	}

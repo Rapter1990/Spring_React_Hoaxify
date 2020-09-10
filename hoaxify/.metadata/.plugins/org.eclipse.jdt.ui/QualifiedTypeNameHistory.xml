@@ -55,9 +55,9 @@
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
 <fullyQualifiedTypeName name="com.hoaxify.ws.projection.HoaxSubmitVM"/>
 <fullyQualifiedTypeName name="com.hoaxify.ws.repository.HoaxRepository"/>
-<fullyQualifiedTypeName name="com.hoaxify.ws.model.User"/>
 <fullyQualifiedTypeName name="com.hoaxify.ws.model.Hoax"/>
 <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
 <fullyQualifiedTypeName name="javax.transaction.Transactional"/>
+<fullyQualifiedTypeName name="com.hoaxify.ws.model.User"/>
 </qualifiedTypeNameHistroy>

@@ -69,7 +69,7 @@ public class User implements UserDetails{
 	//@Lob
 	private String image;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE , CascadeType.REMOVE})
 	private Set<Hoax> hoaxs = new HashSet<>();
 
 	public User(String username, String displayName, String password) {

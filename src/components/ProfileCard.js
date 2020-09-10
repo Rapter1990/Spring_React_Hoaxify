@@ -54,9 +54,6 @@ const ProfileCard = props => {
   // 449 ) validationErrors useState ile boş obje olarak tanımladık
   const [validationErrors, setValidationErrors] = useState({});
 
-  // 544 ) pendingApiCallDeleteUser tanımladık
-  const pendingApiCallDeleteUser = useApiProgress('delete', `/api/1.0/users/${username}`, true);
-
 
   // 463 ) Bilgileri başka yerlere taşımak için dispatch kullandık.
   const dispatch = useDispatch();
@@ -111,6 +108,9 @@ const ProfileCard = props => {
   // 395 ) props'tan user aldık ve ondan username, displayName, image belirledik
   // const { user } = props;
   const { username, displayName, image } = user;
+
+  // 544 ) pendingApiCallDeleteUser tanımladık
+  const pendingApiCallDeleteUser = useApiProgress('delete', `/api/1.0/users/${username}`, true);
 
   // 418 ) useEffect tanımladık inEditMode göre displayName'e set edecek ve iki tane parametre alacak
   useEffect(() => {
@@ -168,7 +168,7 @@ const ProfileCard = props => {
     setModalVisible(false);
   };
 
-  // 546 ) onClickDeleteUser tanımladık
+  // 546 ) onClickDeleteUser tanımladık (Api Call olduğu için async await yaptık)
   const onClickDeleteUser = async () => {
     await deleteUser(username);
     setModalVisible(false);
@@ -212,7 +212,7 @@ const ProfileCard = props => {
                   <i className="material-icons">edit</i>
                   {t('Edit')}
                 </button>
-                <div className="pt-2">
+                <div className="pt-2"> {/** pt-2 -> padding tab 2 */}
                   <button className="btn btn-danger d-inline-flex" onClick={() => setModalVisible(true)}>
                     <i className="material-icons">directions_run</i>
                     {t('Delete My Account')}
